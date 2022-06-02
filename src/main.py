@@ -294,6 +294,7 @@ while True:
         if idx%2==1:#Continue
             break
         else:#Exit
+            cls()
             setoldflags()
             exit(0)
     if idx%2==1:

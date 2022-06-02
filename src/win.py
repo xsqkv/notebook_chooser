@@ -277,6 +277,7 @@ while True:
         if idx%2==1:#Continue
             break
         else:#Exit
+            cls()
             exit(0)
     if idx%2==1:
         settext('Выход',width/3-5,height - height/4)
