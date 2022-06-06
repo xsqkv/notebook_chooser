@@ -116,7 +116,7 @@ def constructor():
             idx-=1
         elif c == '\x1b[B' or c == b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n': # ENTER KEY
+        elif c == '\n' or c == b'\r': # ENTER KEY
             money=idx%4
             break
         if idx%4==0:
@@ -167,7 +167,7 @@ def constructor():
             idx-=1
         elif c == '\x1b[B' or c == b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n': # ENTER KEY
+        elif c == '\n' or c == b'\r': # ENTER KEY
             prior=idx%2
             break
         if idx%2==1:
@@ -197,7 +197,7 @@ def constructor():
             idx-=1
         elif c == '\x1b[B' or c == b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n': # ENTER KEY
+        elif c == '\n' or c == b'\r': # ENTER KEY
             storage=idx%2
             break
         if idx%2==1:
@@ -236,7 +236,7 @@ def choose():
             idx-=1
         elif c == '\x1b[B' or c == b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n': # ENTER KEY
+        elif c == '\n' or c == b'\r': # ENTER KEY
             money=idx%4
             break
         if idx%4==0:
