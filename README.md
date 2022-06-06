@@ -7,3 +7,10 @@
 - Cross-Platform terminal GUI
 - Independent of external libraries
 - Use internet to choose notebook for your needs
+
+***Program on Windows***:
+![](win.jpg)
+
+
+***Program on Linux***:
+![](nix.png)
