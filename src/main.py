@@ -90,7 +90,7 @@ def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 #Set text by x and y
 def settext(text,x,y,color=colors.white,style=styles.none,lst='\n'):
-    out("\033[%d;%dH" % (y,x) + text,color,style,lst)
+    out("\x1b[%d;%dH" % (y,x) + text,color,style,lst)
 
 def setsign(color=colors.white,style=styles.none,lst='\n'):
     i = 0
@@ -112,11 +112,11 @@ def constructor():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\033[A'|b'H': #UP ARROW
+        if c == '\x1b[A'|b'H': #UP ARROW
             idx-=1
-        elif c == '\033[B'|b'P': #DOWN ARROW
+        elif c == '\x1b[B'|b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n'|b'\r': # ENTER KEY
+        elif c == '\n': # ENTER KEY
             money=idx%4
             break
         if idx%4==0:
@@ -163,11 +163,11 @@ def constructor():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\033[A'|b'H': #UP ARROW
+        if c == '\x1b[A'|b'H': #UP ARROW
             idx-=1
-        elif c == '\033[B'|b'P': #DOWN ARROW
+        elif c == '\x1b[B'|b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n'|b'\r': # ENTER KEY
+        elif c == '\n': # ENTER KEY
             prior=idx%2
             break
         if idx%2==1:
@@ -193,11 +193,11 @@ def constructor():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\033[A'|b'H': #UP ARROW
+        if c == '\x1b[A'|b'H': #UP ARROW
             idx-=1
-        elif c == '\033[B'|b'P': #DOWN ARROW
+        elif c == '\x1b[B'|b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n'|b'\r': # ENTER KEY
+        elif c == '\n': # ENTER KEY
             storage=idx%2
             break
         if idx%2==1:
@@ -214,7 +214,7 @@ def constructor():
     if money < 0 : money = 3
     cls()
     settext('Вам подойдёт:',width/2-6,height/2-3,style=styles.bold)
-    st = f'\033[1m{notebook_type[money]}\033[0m Процессор: {processor[money]} Видеокарта: {graphic_card[prior][money]} Тип ОЗУ: {ram_type[money]} Тип хранилища: {storage_type[storage][money]}'
+    st = f'\x1b[1m{notebook_type[money]}\x1b[0m Процессор: {processor[money]} Видеокарта: {graphic_card[prior][money]} Тип ОЗУ: {ram_type[money]} Тип хранилища: {storage_type[storage][money]}'
     settext(st,width/2-len(st)/2,height/2)
     setoldflags()
 
@@ -232,11 +232,11 @@ def choose():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\033[A'|b'H': #UP ARROW
+        if c == '\x1b[A'|b'H': #UP ARROW
             idx-=1
-        elif c == '\033[B'|b'P': #DOWN ARROW
+        elif c == '\x1b[B'|b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n'|b'\r': # ENTER KEY
+        elif c == '\n': # ENTER KEY
             money=idx%4
             break
         if idx%4==0:
@@ -283,7 +283,7 @@ def choose():
     html = r.read().decode('UTF-8')
     result = re.findall(r'alt=".+',html)
     for x in result[:-1]:
-        st = f'\033[1m{x[5:-1]}\033[0m Процессор: {choose_processor[1][money]} Видеокарта: {choose_graphic_card[1][money]} Тип ОЗУ: {choose_ram_type[1][money]} Тип хранилища: {choose_storage_type[1][money]}'
+        st = f'\x1b[1m{x[5:-1]}\x1b[0m Процессор: {choose_processor[1][money]} Видеокарта: {choose_graphic_card[1][money]} Тип ОЗУ: {choose_ram_type[1][money]} Тип хранилища: {choose_storage_type[1][money]}'
         settext(st,width/2-len(st)/2,height/2+indent)
         indent += 1
     setoldflags()
@@ -298,11 +298,11 @@ idx = 10001
 
 while True:
     c = getchar()
-    if c == '\033[D'|b'K': #LEFT ARROW
+    if c == '\x1b[D'|b'K': #LEFT ARROW
         idx-=1
-    elif c == '\033[C'|b'M': #RIGHT ARROW
+    elif c == '\x1b[C'|b'M': #RIGHT ARROW
         idx+=1
-    elif c == '\n'|b'\r'|b'\r': # ENTER KEY
+    elif c == '\n'|b'\r': # ENTER KEY
         if idx%2==1:#Continue
             break
         else:#Exit
@@ -320,17 +320,17 @@ cls()
 settext('Выберите режим',width/2-7,height/2,style=styles.bold)
 settext('Подборка',width/3-5,height - height/4)
 settext('Конструктор',(width-width/3)-5,height-height/4,style=styles.inverse)
-settext('\033[1mКонструктор\033[0m - этот режим предназначен для создания своих параметров для ноутбука',width/2-40,height-height/5+2,style=styles.bold)
+settext('\x1b[1mКонструктор\x1b[0m - этот режим предназначен для создания своих параметров для ноутбука',width/2-40,height-height/5+2,style=styles.bold)
 
 idx = 10001
 
 while True:
     c = getchar()
-    if c == '\033[D'|b'K': #LEFT ARROW
+    if c == '\x1b[D'|b'K': #LEFT ARROW
         idx-=1
-    elif c == '\033[C'|b'M': #RIGHT ARROW
+    elif c == '\x1b[C'|b'M': #RIGHT ARROW
         idx+=1
-    elif c == '\n'|b'\r'|b'\r': # ENTER KEY
+    elif c == '\n'|b'\r': # ENTER KEY
         if idx%2==1:#Constructor
             constructor()
             setoldflags()
@@ -343,10 +343,10 @@ while True:
         settext('Выберите режим',width/2-7,height/2,style=styles.bold)
         settext('Подборка',width/3-5,height - height/4)
         settext('Конструктор',(width-width/3)-5,height-height/4,style=styles.inverse)
-        settext('\033[1mКонструктор\033[0m - этот режим предназначен для создания своих параметров для ноутбука',width/2-40,height-height/5+2,style=styles.bold)
+        settext('\x1b[1mКонструктор\x1b[0m - этот режим предназначен для создания своих параметров для ноутбука',width/2-40,height-height/5+2,style=styles.bold)
     else:
         cls()
         settext('Выберите режим',width/2-7,height/2,style=styles.bold)
         settext('Подборка',width/3-5,height - height/4,style=styles.inverse)
         settext('Конструктор',(width-width/3)-5,height-height/4)
-        settext('\033[1mПодборка\033[0m - этот режим предназначен для выбора ноутбука из уже существующих моделей',width/2-42,height-height/5+2,style=styles.bold)
+        settext('\x1b[1mПодборка\x1b[0m - этот режим предназначен для выбора ноутбука из уже существующих моделей',width/2-42,height-height/5+2,style=styles.bold)
