@@ -63,7 +63,7 @@ if os.name != 'nt':
 
     oldterm = termios.tcgetattr(fd) # get current flags
     oldflags = fcntl.fcntl(fd, fcntl.F_GETFL) # still get current flags
-    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags  or c ==  os.O_NONBLOCK) # set flags with nonblock flag
+    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK) # set flags with nonblock flag
 
     newattr = termios.tcgetattr(fd) # get current flags again
     newattr[3] = newattr[3] & ~termios.ICANON # idk exclude icanon flag
@@ -300,7 +300,7 @@ idx = 10001
 
 while True:
     c = getchar()
-    if c == b'\x1b[D' or c == b'K': #LEFT ARROW
+    if c == '\x1b[D' or c == b'K': #LEFT ARROW
         idx-=1
     elif c == '\x1b[C' or c == b'M': #RIGHT ARROW
         idx+=1
@@ -328,7 +328,7 @@ idx = 10001
 
 while True:
     c = getchar()
-    if c == b'\x1b[D' or c == b'K': #LEFT ARROW
+    if c == '\x1b[D' or c == b'K': #LEFT ARROW
         idx-=1
     elif c == '\x1b[C' or c == b'M': #RIGHT ARROW
         idx+=1
