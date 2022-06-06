@@ -71,11 +71,13 @@ if os.name != 'nt':
     termios.tcsetattr(fd, termios.TCSANOW, newattr) # set flags
 
 def setnewflags():
-    termios.tcsetattr(fd, termios.TCSANOW, newattr) # set flags
+    if os.name != 'nt':
+        termios.tcsetattr(fd, termios.TCSANOW, newattr) # set flags
 
 def setoldflags():
-    termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
-    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
+    if os.name != 'nt':
+        termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
+        fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
 
 def getchar():
     if os.name == 'nt':
