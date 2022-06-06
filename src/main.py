@@ -4,12 +4,15 @@ Program wich helps you choose notebook for work with mathemathic packets
 Author: Artem Vanty GitHub:vantyartem
 '''
 import os,sys
-import termios, fcntl
-import select
 import http.client
 import re
-
 from term import *
+if os.name == 'nt':
+    from msvcrt import getch
+else:
+    import termios, fcntl
+    import select
+
 
 sign =[r"Добро пожаловать в программу",
        r"по выбору оптимальной конфигурации для ноутбука",
@@ -54,7 +57,35 @@ ram_type = ['ddr2','ddr3','ddr4','ddr5']
 storage_type = [['emmc','hdd','ssd','ssd'],
 ['emmc','hdd','ssd','nvme']]
 notebook_type = ['Дешёвый ноутбук','Бюджетный ноутбук','Универсальный ноутбук','Мощный ноутбук']
-#Clear fucntion
+
+if os.name != 'nt':
+    fd = sys.stdin.fileno()
+
+    oldterm = termios.tcgetattr(fd) # get current flags
+    oldflags = fcntl.fcntl(fd, fcntl.F_GETFL) # still get current flags
+    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK) # set flags with nonblock flag
+
+    newattr = termios.tcgetattr(fd) # get current flags again
+    newattr[3] = newattr[3] & ~termios.ICANON # idk exclude icanon flag
+    newattr[3] = newattr[3] & ~termios.ECHO # exclude echo flag
+    termios.tcsetattr(fd, termios.TCSANOW, newattr) # set flags
+
+def setnewflags():
+    termios.tcsetattr(fd, termios.TCSANOW, newattr) # set flags
+
+def setoldflags():
+    termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
+    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
+
+def getchar():
+    if os.name == 'nt':
+        c = getch()
+    else:
+        inp, outp, err = select.select([sys.stdin], [], [])
+        c = sys.stdin.read()
+    return c
+
+#Clear function
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 #Set text by x and y
@@ -81,11 +112,11 @@ def constructor():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\033[A': #UP ARROW
+        if c == '\033[A'|b'H': #UP ARROW
             idx-=1
-        elif c == '\033[B': #DOWN ARROW
+        elif c == '\033[B'|b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n': # ENTER KEY
+        elif c == '\n'|b'\r': # ENTER KEY
             money=idx%4
             break
         if idx%4==0:
@@ -132,11 +163,11 @@ def constructor():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\033[A': #UP ARROW
+        if c == '\033[A'|b'H': #UP ARROW
             idx-=1
-        elif c == '\033[B': #DOWN ARROW
+        elif c == '\033[B'|b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n': # ENTER KEY
+        elif c == '\n'|b'\r': # ENTER KEY
             prior=idx%2
             break
         if idx%2==1:
@@ -162,11 +193,11 @@ def constructor():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\033[A': #UP ARROW
+        if c == '\033[A'|b'H': #UP ARROW
             idx-=1
-        elif c == '\033[B': #DOWN ARROW
+        elif c == '\033[B'|b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n': # ENTER KEY
+        elif c == '\n'|b'\r': # ENTER KEY
             storage=idx%2
             break
         if idx%2==1:
@@ -201,11 +232,11 @@ def choose():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\033[A': #UP ARROW
+        if c == '\033[A'|b'H': #UP ARROW
             idx-=1
-        elif c == '\033[B': #DOWN ARROW
+        elif c == '\033[B'|b'P': #DOWN ARROW
             idx+=1
-        elif c == '\n': # ENTER KEY
+        elif c == '\n'|b'\r': # ENTER KEY
             money=idx%4
             break
         if idx%4==0:
@@ -257,24 +288,6 @@ def choose():
         indent += 1
     setoldflags()
 
-fd = sys.stdin.fileno()
-
-oldterm = termios.tcgetattr(fd) # get current flags
-oldflags = fcntl.fcntl(fd, fcntl.F_GETFL) # still get current flags
-fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK) # set flags with nonblock flag
-
-newattr = termios.tcgetattr(fd) # get current flags again
-newattr[3] = newattr[3] & ~termios.ICANON # idk exclude icanon flag
-newattr[3] = newattr[3] & ~termios.ECHO # exclude echo flag
-termios.tcsetattr(fd, termios.TCSANOW, newattr) # set flags
-
-def setnewflags():
-    termios.tcsetattr(fd, termios.TCSANOW, newattr) # set flags
-
-def setoldflags():
-    termios.tcsetattr(fd, termios.TCSAFLUSH, oldterm)
-    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags)
-
 #### MAIN ####
 cls()
 setsign(style=styles.bold)
@@ -284,13 +297,12 @@ settext('Далее',(width-width/3)-5,height-height/4,style=styles.inverse)
 idx = 10001
 
 while True:
-    inp, outp, err = select.select([sys.stdin], [], [])
-    c = sys.stdin.read()
-    if c == '\033[D': #LEFT ARROW
+    c = getchar()
+    if c == '\033[D'|b'K': #LEFT ARROW
         idx-=1
-    elif c == '\033[C': #RIGHT ARROW
+    elif c == '\033[C'|b'M': #RIGHT ARROW
         idx+=1
-    elif c == '\n': # ENTER KEY
+    elif c == '\n'|b'\r'|b'\r': # ENTER KEY
         if idx%2==1:#Continue
             break
         else:#Exit
@@ -313,13 +325,12 @@ settext('\033[1mКонструктор\033[0m - этот режим предна
 idx = 10001
 
 while True:
-    inp, outp, err = select.select([sys.stdin], [], [])
-    c = sys.stdin.read()
-    if c == '\033[D': #LEFT ARROW
+    c = getchar()
+    if c == '\033[D'|b'K': #LEFT ARROW
         idx-=1
-    elif c == '\033[C': #RIGHT ARROW
+    elif c == '\033[C'|b'M': #RIGHT ARROW
         idx+=1
-    elif c == '\n': # ENTER KEY
+    elif c == '\n'|b'\r'|b'\r': # ENTER KEY
         if idx%2==1:#Constructor
             constructor()
             setoldflags()

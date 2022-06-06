@@ -77,7 +77,6 @@ def constructor():
     idx = 10004
 
     while True:
-        #inp, outp, err = select.select([sys.stdin], [], [])
 
         c = getch()
         if c == b'H': #UP ARROW
@@ -129,7 +128,6 @@ def constructor():
     settext('Графическая карта',width/2-9,height/2+2,style=styles.inverse)
 
     while True:
-        #inp, outp, err = select.select([sys.stdin], [], [])
 
         c = getch()
         if c == b'H': #UP ARROW
@@ -160,7 +158,6 @@ def constructor():
     settext('Да',width/2-1,height/2+2,style=styles.inverse)
 
     while True:
-        #inp, outp, err = select.select([sys.stdin], [], [])
 
         c = getch()
         if c == b'H': #UP ARROW
@@ -199,7 +196,6 @@ def choose():
     idx = 10004
 
     while True:
-        #inp, outp, err = select.select([sys.stdin], [], [])
 
         c = getch()
         if c == b'H': #UP ARROW
@@ -267,7 +263,6 @@ settext('Далее',(width-width/3)-5,height-height/4,style=styles.inverse)
 idx = 10001
 
 while True:
-    #inp, outp, err = select.select([sys.stdin], [], [])
     c = getch()
     if c == b'K': #LEFT ARROW
         idx-=1
@@ -295,7 +290,6 @@ settext('\033[1mКонструктор\033[0m - этот режим предна
 idx = 10001
 
 while True:
-    #inp, outp, err = select.select([sys.stdin], [], [])
     c = getch()
     if c == b'K': #LEFT ARROW
         idx-=1
