@@ -110,8 +110,8 @@ def constructor():
     idx = 10004
 
     while True:
-        inp, outp, err = select.select([sys.stdin], [], [])
-        c = sys.stdin.read()
+        
+        c = getchar()
         if c == '\x1b[A' or c == b'H': #UP ARROW
             idx-=1
         elif c == '\x1b[B' or c == b'P': #DOWN ARROW
@@ -161,8 +161,8 @@ def constructor():
     settext('Графическая карта',width/2-9,height/2+2,style=styles.inverse)
 
     while True:
-        inp, outp, err = select.select([sys.stdin], [], [])
-        c = sys.stdin.read()
+        
+        c = getchar()
         if c == '\x1b[A' or c == b'H': #UP ARROW
             idx-=1
         elif c == '\x1b[B' or c == b'P': #DOWN ARROW
@@ -191,8 +191,8 @@ def constructor():
     settext('Да',width/2-1,height/2+2,style=styles.inverse)
 
     while True:
-        inp, outp, err = select.select([sys.stdin], [], [])
-        c = sys.stdin.read()
+        
+        c = getchar()
         if c == '\x1b[A' or c == b'H': #UP ARROW
             idx-=1
         elif c == '\x1b[B' or c == b'P': #DOWN ARROW
@@ -230,8 +230,8 @@ def choose():
     idx = 10004
 
     while True:
-        inp, outp, err = select.select([sys.stdin], [], [])
-        c = sys.stdin.read()
+        
+        c = getchar()
         if c == '\x1b[A' or c == b'H': #UP ARROW
             idx-=1
         elif c == '\x1b[B' or c == b'P': #DOWN ARROW
