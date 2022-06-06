@@ -63,7 +63,7 @@ if os.name != 'nt':
 
     oldterm = termios.tcgetattr(fd) # get current flags
     oldflags = fcntl.fcntl(fd, fcntl.F_GETFL) # still get current flags
-    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK) # set flags with nonblock flag
+    fcntl.fcntl(fd, fcntl.F_SETFL, oldflags  or c ==  os.O_NONBLOCK) # set flags with nonblock flag
 
     newattr = termios.tcgetattr(fd) # get current flags again
     newattr[3] = newattr[3] & ~termios.ICANON # idk exclude icanon flag
@@ -112,9 +112,9 @@ def constructor():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\x1b[A'|b'H': #UP ARROW
+        if c == '\x1b[A' or c == b'H': #UP ARROW
             idx-=1
-        elif c == '\x1b[B'|b'P': #DOWN ARROW
+        elif c == '\x1b[B' or c == b'P': #DOWN ARROW
             idx+=1
         elif c == '\n': # ENTER KEY
             money=idx%4
@@ -163,9 +163,9 @@ def constructor():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\x1b[A'|b'H': #UP ARROW
+        if c == '\x1b[A' or c == b'H': #UP ARROW
             idx-=1
-        elif c == '\x1b[B'|b'P': #DOWN ARROW
+        elif c == '\x1b[B' or c == b'P': #DOWN ARROW
             idx+=1
         elif c == '\n': # ENTER KEY
             prior=idx%2
@@ -193,9 +193,9 @@ def constructor():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\x1b[A'|b'H': #UP ARROW
+        if c == '\x1b[A' or c == b'H': #UP ARROW
             idx-=1
-        elif c == '\x1b[B'|b'P': #DOWN ARROW
+        elif c == '\x1b[B' or c == b'P': #DOWN ARROW
             idx+=1
         elif c == '\n': # ENTER KEY
             storage=idx%2
@@ -232,9 +232,9 @@ def choose():
     while True:
         inp, outp, err = select.select([sys.stdin], [], [])
         c = sys.stdin.read()
-        if c == '\x1b[A'|b'H': #UP ARROW
+        if c == '\x1b[A' or c == b'H': #UP ARROW
             idx-=1
-        elif c == '\x1b[B'|b'P': #DOWN ARROW
+        elif c == '\x1b[B' or c == b'P': #DOWN ARROW
             idx+=1
         elif c == '\n': # ENTER KEY
             money=idx%4
@@ -298,11 +298,11 @@ idx = 10001
 
 while True:
     c = getchar()
-    if c == b'\x1b[D'|b'K': #LEFT ARROW
+    if c == b'\x1b[D' or c == b'K': #LEFT ARROW
         idx-=1
-    elif c == '\x1b[C'|b'M': #RIGHT ARROW
+    elif c == '\x1b[C' or c == b'M': #RIGHT ARROW
         idx+=1
-    elif c == '\n'|b'\r': # ENTER KEY
+    elif c == '\n' or c == b'\r': # ENTER KEY
         if idx%2==1:#Continue
             break
         else:#Exit
@@ -326,11 +326,11 @@ idx = 10001
 
 while True:
     c = getchar()
-    if c == b'\x1b[D'|b'K': #LEFT ARROW
+    if c == b'\x1b[D' or c == b'K': #LEFT ARROW
         idx-=1
-    elif c == '\x1b[C'|b'M': #RIGHT ARROW
+    elif c == '\x1b[C' or c == b'M': #RIGHT ARROW
         idx+=1
-    elif c == '\n'|b'\r': # ENTER KEY
+    elif c == '\n' or c == b'\r': # ENTER KEY
         if idx%2==1:#Constructor
             constructor()
             setoldflags()
