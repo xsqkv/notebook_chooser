@@ -298,7 +298,7 @@ idx = 10001
 
 while True:
     c = getchar()
-    if c == '\x1b[D'|b'K': #LEFT ARROW
+    if c == b'\x1b[D'|b'K': #LEFT ARROW
         idx-=1
     elif c == '\x1b[C'|b'M': #RIGHT ARROW
         idx+=1
@@ -326,7 +326,7 @@ idx = 10001
 
 while True:
     c = getchar()
-    if c == '\x1b[D'|b'K': #LEFT ARROW
+    if c == b'\x1b[D'|b'K': #LEFT ARROW
         idx-=1
     elif c == '\x1b[C'|b'M': #RIGHT ARROW
         idx+=1
