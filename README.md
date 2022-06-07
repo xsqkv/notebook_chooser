@@ -17,4 +17,4 @@
 
 
 ***Program on Android in termux***:
-![](img/android.png)
+![](img/android.jpg)
