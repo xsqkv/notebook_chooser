@@ -1,3 +1,7 @@
+'''
+Header file for work with terminal
+'''
+
 from enum import IntEnum
 
 class colors(IntEnum):

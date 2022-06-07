@@ -3,6 +3,7 @@ Program wich helps you choose notebook for work with mathemathic packets
 
 Author: Artem Vanty GitHub:vantyartem
 '''
+
 import os,sys
 import http.client
 import re
@@ -14,6 +15,7 @@ else:
 
 from term import *
 from vars import *
+
 
 #if unix system then include this code
 if os.name != 'nt':

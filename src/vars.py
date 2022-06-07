@@ -1,4 +1,9 @@
+'''
+Header file for variables
+'''
+
 import os
+
 
 #sign array
 sign =[r"Добро пожаловать в программу",
