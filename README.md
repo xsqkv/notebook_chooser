@@ -9,12 +9,12 @@
 - Use internet to choose notebook for your needs
 
 ***Program on Windows***:
-![](win.jpg)
+![](img/win.jpg)
 
 
 ***Program on Linux***:
-![](nix.png)
+![](img/nix.png)
 
 
 ***Program on Android in termux***:
-![](android.png)
+![](img/android.png)
