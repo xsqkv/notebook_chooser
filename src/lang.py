@@ -19,10 +19,10 @@ no = ['Да','Yes']
 
 
 suit = ['Вам подойдёт:','Suitable for:']
-prc = ['Процессор','CPU']
-graphic_c = ['Видеокарта','Graphic card']
-ram_t = ['Тип ОЗУ','RAM type']
-storage_t = ['Тип хранилища','Storage type']
+prc = ['\x1b[1mПроцессор\x1b[0m','\x1b[1mCPU\x1b[0m']
+graphic_c = ['\x1b[1mВидеокарта\x1b[0m','\x1b[1mGraphic card\x1b[0m']
+ram_t = ['\x1b[1mТип ОЗУ\x1b[0m','\x1b[1mRAM type\x1b[0m']
+storage_t = ['\x1b[1mТип хранилища\x1b[0m','\x1b[1mStorage type\x1b[0m']
 
 
 exitt = ['Выход','Exit']
