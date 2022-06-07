@@ -14,3 +14,7 @@
 
 ***Program on Linux***:
 ![](nix.png)
+
+
+***Program on Android in termux***:
+![](android.png)
